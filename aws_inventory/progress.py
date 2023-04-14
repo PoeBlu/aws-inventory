@@ -57,7 +57,7 @@ class GuiProgressBar(ttk.Frame):
         )
         progress_bar.pack(fill='both')
 
-        status_label_text = tk.StringVar(value='0 / {}'.format(self.work_count))
+        status_label_text = tk.StringVar(value=f'0 / {self.work_count}')
         status_label = ttk.Label(self, anchor='w', textvariable=status_label_text)
         status_label.pack(fill='x')
 
@@ -93,10 +93,9 @@ class GuiProgressBar(ttk.Frame):
         if self.pending_stop:
             raise LifetimeError('User initiated stop.')
         self.widget_space.progress_bar.step(delta)
-        self.widget_space.status_label_text.set('{} / {}'.format(
-            int(self.widget_space.progress_bar['value']),
-            self.work_count
-        ))
+        self.widget_space.status_label_text.set(
+            f"{int(self.widget_space.progress_bar['value'])} / {self.work_count}"
+        )
 
     def update_svc_text(self, svc_name, region):
         """Update text in status area of GUI.
@@ -104,7 +103,7 @@ class GuiProgressBar(ttk.Frame):
         :param str svc_name: service name
         :param str region: region name
         """
-        self.widget_space.label_text.set('{}:{}'.format(svc_name, region))
+        self.widget_space.label_text.set(f'{svc_name}:{region}')
 
     def finish_work(self):
         """Update GUI when work is complete."""

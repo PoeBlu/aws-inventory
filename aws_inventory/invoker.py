@@ -87,7 +87,7 @@ class ApiInvoker(object):
                             aws_session_token=self.credentials['SessionToken'],
                             config=client_config
                         )
-                    params.update({'region': region, 'client': client})
+                    params |= {'region': region, 'client': client}
                     # schedule worker threads to invoke all APIs. Wait until all APIs have been
                     # invoked.
                     thread_work(

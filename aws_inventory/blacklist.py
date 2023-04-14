@@ -30,8 +30,7 @@ class OpBlacklistParser(object):
             try:
                 available_ops = set(api_model[svc_name]['ops'])
                 blacklist_ops = set(self._cfg_parser.options(svc_name))
-                invalid_ops = blacklist_ops - available_ops
-                if invalid_ops:
+                if invalid_ops := blacklist_ops - available_ops:
                     err = True
                     LOGGER.error('[%s] Invalid operation(s): %s.', svc_name, ', '.join(invalid_ops))
             except KeyError:

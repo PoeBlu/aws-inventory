@@ -80,10 +80,10 @@ def parse_args(args=None):
 
     parser.add_argument('--responses-dump', help='File to dump the responses store')
 
-    parser.add_argument('--gui-data-file',
-                        help='File to the GUI data (default: {})'.format(
-                            aws_inventory.config.GUI_DATA_FILENAME_TEMPLATE.template
-                        ))
+    parser.add_argument(
+        '--gui-data-file',
+        help=f'File to the GUI data (default: {aws_inventory.config.GUI_DATA_FILENAME_TEMPLATE.template})',
+    )
 
     parser.add_argument('--debug',
                         action='store_true',
@@ -121,17 +121,15 @@ def filter_services(api_model, services=frozenset(), excluded_services=frozenset
     """
     available = frozenset(api_model.keys())
     if services:
-        invalid = services - available
-        if invalid:
-            raise ValueError('Invalid requested service(s): {}'.format(invalid))
+        if invalid := services - available:
+            raise ValueError(f'Invalid requested service(s): {invalid}')
         enabled = services
     else:
         enabled = available
 
     if excluded_services:
-        invalid = excluded_services - available
-        if invalid:
-            raise ValueError('Invalid excluded service(s): {}'.format(invalid))
+        if invalid := excluded_services - available:
+            raise ValueError(f'Invalid excluded service(s): {invalid}')
         enabled = enabled - excluded_services
 
     return enabled

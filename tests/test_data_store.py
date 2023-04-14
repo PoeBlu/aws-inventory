@@ -25,12 +25,9 @@ TEST_RESPONSE_STORE = {
     }
 }
 for i in range(3, 103):
-    TEST_RESPONSE_STORE.update({
-        'test-service' + str(i): {
-        'test-region1': {
-            'test-operation1': 'string'
-        }
-    }})
+    TEST_RESPONSE_STORE[f'test-service{str(i)}'] = {
+        'test-region1': {'test-operation1': 'string'}
+    }
 
 TEST_EXCEPTION_STORE = {'test-service': {'test-operation1': {'test-region': 'exception'}}}
 
